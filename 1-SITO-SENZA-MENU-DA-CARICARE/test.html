@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prova Kindle</title>
+<style>body{font-family:Arial,sans-serif;font-size:22px;line-height:1.4;padding:16px;background:#fff;color:#000}b{font-size:28px}#out div{border-bottom:1px solid #999;padding:6px 0}</style>
+</head><body>
+<b>1. PAGINA OK</b>
+<p>Se leggi questa riga, Netlify funziona sul Kindle.</p>
+<div id="out"><div>2. JavaScript: NON FUNZIONA</div></div>
+<script>
+var errors=[];
+window.onerror=function(msg,url,line){errors.push(msg+' (riga '+line+')');show();return false};
+function row(t){return '<div>'+String(t).replace(/</g,'&lt;')+'</div>'}
+function show(){
+var out=row('2. JavaScript: OK');
+out+=row('3. Schermo: '+(window.innerWidth||0)+' x '+(window.innerHeight||0));
+var ls='NO';try{window.localStorage.setItem('t','1');ls=window.localStorage.getItem('t')==='1'?'SI':'NO'}catch(e){ls='NO ('+e.message+')'}
+out+=row('4. Memoria (localStorage): '+ls);
+out+=row('5. Browser: '+navigator.userAgent);
+if(errors.length)out+=row('ERRORI: '+errors.join(' | '));
+document.getElementById('out').innerHTML=out;
+}
+show();
+</script>
+</body></html>
